@@ -41,18 +41,18 @@
 
 void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estadoInicial,int *nEstadosFinais){
 
-	FILE *arquivo    = NULL;
+    FILE *arquivo    = NULL;
     int  **transicao = NULL;
     int	  *finais    = NULL;
     int  i, j, k, x, fim;
-	char y;
+    char y;
     char arqName[50];
-	char alfabeto[50];
+    char alfabeto[50];
 
     printf("\n\n\nDigite o nome do arquivouivo (.txt) com a transicao: \n");
     gets(arqName);
 
-	arquivo = fopen(arqName,"r");
+    arquivo = fopen(arqName,"r");
 
     if(arquivo == NULL){
         printf("\n\nERROR: Nao foi possivel ler o arquivouivo"
@@ -62,19 +62,19 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
         exit(1);
     }
 
-	//\_ Obtem informações do arquivouivo
+    //\_ Obtem informações do arquivouivo
     fscanf(arquivo, "%s", alfabeto);
     fscanf(arquivo, "%i", estadoInicial);
     fscanf(arquivo, "%i", nEstados);
     fscanf(arquivo, "%i", nEstadosFinais);
 
-	//\_ Imprime na tela informações do arquivouivo
+    //\_ Imprime na tela informações do arquivouivo
     printf("\nAlfabeto:                  %s"  , alfabeto);
     printf("\nEstado Inicial:            Q%i" , *estadoInicial);
     printf("\nNumero de Estados:         %i"  , *nEstados);
     printf("\nNumero de Estados Finiais: %i\n", *nEstadosFinais);
 
-	//\_ Aloca a transição em uma matrizriz
+    //\_ Aloca a transição em uma matrizriz
     transicao = (int **)malloc((*nEstados)*sizeof(int *));
 
     if(transicao == NULL){
@@ -89,7 +89,7 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
         exit(1);
     }
 
-	//\_ Aloca o conjunto de estados finais (vetor)
+    //\_ Aloca o conjunto de estados finais (vetor)
     finais = (int *)malloc((*nEstadosFinais)*sizeof(int));
 
     if(finais == NULL){
@@ -105,7 +105,7 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
         printf("\nEstado Final = Q%i\t", finais[fim]);
     }
 
-	//\_ Printa na tela a transição do A.F.D
+    //\_ Printa na tela a transição do A.F.D
     printf("\n\nFuncao de Transicao do A.F.D\n\n");
 	
 	printf("-------------------------\n");
@@ -118,17 +118,17 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
 		}
 	}
 
-    (*matrizTransicao)   = transicao;
-    (*estadoFinal) = finais;
+    (*matrizTransicao) = transicao;
+    (*estadoFinal)  = finais;
     fclose(arquivo);
 }
 
 void validaPalavra(int ***matrizTransicao,int **estadoFinal,int *estadoInicial,char simbolo[50]){
     int i,estado;
-	int **transicao = NULL;
+    int **transicao = NULL;
     int  *finais    = NULL;
 
-	transicao = *matrizTransicao;
+    transicao = *matrizTransicao;
     finais    = *estadoFinal;
     estado    = (*estadoInicial);
     i = 0;
@@ -140,10 +140,10 @@ void validaPalavra(int ***matrizTransicao,int **estadoFinal,int *estadoInicial,c
     }
 
     if(finais[estado] == estado){
-		printf("\n\n\nPalavra ( %s ) foi ACEITA! O estado parada foi: Q%i\n\n\n", simbolo, estado);
+	printf("\n\n\nPalavra ( %s ) foi ACEITA! O estado parada foi: Q%i\n\n\n", simbolo, estado);
     }else{
-		printf("\n\n\nPalavra ( %s ) foi REJEITADA! O estado de parada foi: Q%i\n\n\n", simbolo, estado);
-	}
+	printf("\n\n\nPalavra ( %s ) foi REJEITADA! O estado de parada foi: Q%i\n\n\n", simbolo, estado);
+    }
 }
 
 int main(){
@@ -151,16 +151,16 @@ int main(){
     int **transicao = NULL;
     int	 *finais    = NULL;
     int i,j,k;
-	int estadoInicial;
-	int nEstados;
-	int nEstadosFinais;
+    int estadoInicial;
+    int nEstados;
+    int nEstadosFinais;
     char simbolo[50],op;
 
     //\_ Define o titulo da janela do simulador
     system("title Simulador de Autômatrizos Finitos Desterministicos (A.F.D)");
 
-	do{
-		//\_ Limpar o buffer (no windows) (no Linux: __fpurge(stdin) );
+    do{
+	//\_ Limpar o buffer (no windows) (no Linux: __fpurge(stdin) );
         fflush(stdin);
         //\_ Limpar a tela
         system("cls");
@@ -169,19 +169,19 @@ int main(){
                "\n\t|   SIMULADOR DE AUTOMATOS FINITOS DETERMINISTICOS (A.F.D)   |"
                "\n\t| ********************************************************** |");
 
-		openFile(&transicao,&finais,&nEstados,&estadoInicial,&nEstadosFinais);
+	openFile(&transicao,&finais,&nEstados,&estadoInicial,&nEstadosFinais);
 
-		//\_ Limpar o buffer (no windows) (no Linux: __fpurge(stdin) );
+	//\_ Limpar o buffer (no windows) (no Linux: __fpurge(stdin) );
         fflush(stdin);
 
-		printf("\nDigite a palavra qual deseja validar: ");
-		//\_ Limpar o buffer (no windows) (no Linux: __fpurge(stdin) );
+	printf("\nDigite a palavra qual deseja validar: ");
+	//\_ Limpar o buffer (no windows) (no Linux: __fpurge(stdin) );
         fflush(stdin);
-		scanf("%s",simbolo);
+	scanf("%s",simbolo);
 
-		validaPalavra(&transicao,&finais,&estadoInicial,simbolo);
+	validaPalavra(&transicao,&finais,&estadoInicial,simbolo);
 
-		//\_ Laço para liberar a matrizriz
+	//\_ Laço para liberar a matrizriz
         for(i=(nEstados-1); i>=0; i--){
             free(transicao[i]);
         }
@@ -191,5 +191,6 @@ int main(){
         scanf("%s", &op);
 
 	}while(op == 'S' || op == 's');
+	
 	system("Pause");
 }
