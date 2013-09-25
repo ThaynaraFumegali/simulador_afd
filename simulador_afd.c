@@ -83,7 +83,7 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
         exit(1);
     }
 
-	 for(i=0; i<(*nEstados); i++){
+    for(i=0; i<(*nEstados); i++){
         transicao[i] = (int *)malloc(strlen(alfabeto)*sizeof(int));
         if(transicao[i] == NULL)
         exit(1);
@@ -98,7 +98,7 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
         exit(1);
     }
 
-	for(k=0; k<(*nEstadosFinais); k++){
+    for(k=0; k<(*nEstadosFinais); k++){
         fscanf(arquivo, "%i", &fim);
         finais[fim] = fim;
         //\_ Printa na tela quem sao os estados finais
@@ -108,18 +108,19 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
     //\_ Printa na tela a transição do A.F.D
     printf("\n\nFuncao de Transicao do A.F.D\n\n");
 	
-	printf("-------------------------\n");
+    printf("-------------------------\n");
 
-	for(i=0; i<(*nEstados); i++){
-		for(j=0; j<strlen(alfabeto); j++){
-			fscanf(arquivo, "%i %c %i", &x, &y, &transicao[i][j]);
-			printf("|  Q%i  |   %c   |   Q%i   |\n", x, y, transicao[i][j]);
-			printf("-------------------------\n");
-		}
+    for(i=0; i<(*nEstados); i++){
+	for(j=0; j<strlen(alfabeto); j++){
+		fscanf(arquivo, "%i %c %i", &x, &y, &transicao[i][j]);
+		printf("|  Q%i  |   %c   |   Q%i   |\n", x, y, transicao[i][j]);
+		printf("-------------------------\n");
 	}
+    }
 
     (*matrizTransicao) = transicao;
     (*estadoFinal)  = finais;
+    
     fclose(arquivo);
 }
 
@@ -150,10 +151,10 @@ int main(){
 
     int **transicao = NULL;
     int	 *finais    = NULL;
-    int i,j,k;
-    int estadoInicial;
-    int nEstados;
-    int nEstadosFinais;
+    int  i,j,k;
+    int  estadoInicial;
+    int  nEstados;
+    int  nEstadosFinais;
     char simbolo[50],op;
 
     //\_ Define o titulo da janela do simulador
@@ -185,8 +186,10 @@ int main(){
         for(i=(nEstados-1); i>=0; i--){
             free(transicao[i]);
         }
+        
         free(transicao);
         free(finais);
+        
         printf("\n\nDeseja abrir outro arquivouivo de transicao - (S/N)?");
         scanf("%s", &op);
 
