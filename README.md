@@ -13,5 +13,5 @@ necessárias para determinar as ações para a próxima entrada. À medida que c
 controle da máquina passa de um estado a outro, segundo um conjunto de regras de transição especificadas ao autômato. 
 
 Se após o último caractere o autômato encontra-se em um dos estados finais, a string pertence à linguagem aceita pelo 
-autômato. Podem ser associados a diversos tipos de sistemas naturais e construídos.
+autômato.
 
