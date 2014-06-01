@@ -3,9 +3,6 @@
  * Este programa é um simulador de Autômatrizos Finitos Deterministicos (A.F.D)
  * por meio de leitura de arquivouivos (txt).
  *
- * @author JefersonBelgamazzi
- * E-mail j_belgamazzi@hotmail.com
- *
  */
 
 /**
