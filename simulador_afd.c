@@ -1,4 +1,6 @@
 /**
+ * Código base disponível em https://github.com/jbelgamazzi/simulador_afd.
+ * Personalizado por Thaynara Fumegali - Acadêmica do Curso de Ciência da Computação
  * Descrição
  * Este programa é um simulador de Autômatrizos Finitos Deterministicos (A.F.D)
  * por meio de leitura de arquivouivos (txt).
@@ -14,8 +16,8 @@
  *
  * EXEMPLO: Deve-se escrever o arquivouivo da seguinte forma: (sem os comentários em parenteses)
  *
+ * 0      - estadoInicial
  * ab     (alfabeto)
- * 0      (estadoInicial)
  * 4      (nº de estados)
  * 1      (nº de estados finais)
  * 3      (estado estadoFinal. Caso haja mais de um deve ser informado na sequancia, uma abaixo do outro)
@@ -46,7 +48,7 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
     char arqName[50];
     char alfabeto[50];
 
-    printf("\n\n\nDigite o nome do arquivouivo (.txt) com a transicao: \n");
+    printf("\n\n\nDigite o nome do arquivouivo (com .txt nmo final) com a transicao: \n");
     gets(arqName);
 
     arquivo = fopen(arqName,"r");
@@ -54,20 +56,20 @@ void openFile(int ***matrizTransicao,int **estadoFinal,int *nEstados,int *estado
     if(arquivo == NULL){
         printf("\n\nERROR: Nao foi possivel ler o arquivouivo"
                "\n\nVerifique se o nome e/ou caminho estao corretos"
-               "\nA extensao do arquivouivo deve ser .txt\n\n");
+               "\nA extensao do arquivo deve ser .txt\n\n");
         system("Pause");
         exit(1);
     }
 
-    //\_ Obtem informações do arquivouivo
-    fscanf(arquivo, "%s", alfabeto);
+    // Pega informações
     fscanf(arquivo, "%i", estadoInicial);
+    fscanf(arquivo, "%s", alfabeto);
     fscanf(arquivo, "%i", nEstados);
     fscanf(arquivo, "%i", nEstadosFinais);
 
-    //\_ Imprime na tela informações do arquivouivo
-    printf("\nAlfabeto:                  %s"  , alfabeto);
+    //Imprime informações
     printf("\nEstado Inicial:            Q%i" , *estadoInicial);
+    printf("\nAlfabeto:                  %s"  , alfabeto);
     printf("\nNumero de Estados:         %i"  , *nEstados);
     printf("\nNumero de Estados Finiais: %i\n", *nEstadosFinais);
 
@@ -179,7 +181,7 @@ int main(){
 
 	validaPalavra(&transicao,&finais,&estadoInicial,simbolo);
 
-	//\_ Laço para liberar a matrizriz
+	//Laço para liberar a matrizriz
         for(i=(nEstados-1); i>=0; i--){
             free(transicao[i]);
         }
